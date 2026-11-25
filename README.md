@@ -1,46 +1,43 @@
 # Ocarina VR Builds
 
-Windows x64 downloads for **two different editions of The Legend of Zelda: Ocarina of Time**. These are unofficial VR modifications; the underlying emulator, PC port and games are credited to their respective creators.
+Windows x64 downloads for two different editions of Ocarina of Time. These are unofficial VR modifications; the underlying emulator, PC port and games belong to their respective creators.
 
-**[Latest downloads and detailed update notes](https://github.com/jamesmthorp-gif/ocarina-vr-builds/releases/latest)**
+[Latest downloads and detailed update notes](../../releases/latest)
 
-| Download | Your own game data | What it does |
+| Download | Game you supply | Experience |
 | --- | --- | --- |
-| [Lichii 3D Cinema — build 341](https://github.com/jamesmthorp-gif/ocarina-vr-builds/releases/download/v1.2.0/Lichii.3D.Cinema.Build341.zip) | Compatible Switch 2 remake dump | Depth-based stereo on the included virtual cinema screen, retaining the original third-person camera. 1440p eye images are scaled to 3840 × 2160 cinema textures per eye. |
-| [Ship of Harkinian VR](https://github.com/jamesmthorp-gif/ocarina-vr-builds/releases/download/v1.2.0/Ship.of.Harkinian.VR.zip) | Supported dump of the original N64 game | The independent native third-person OpenXR mod built on [Ship of Harkinian by Harbour Masters](https://github.com/HarbourMasters/Shipwright). Includes VR and desktop launch modes. |
+| [Lichii 3D Cinema — build 386](../../releases/download/v1.3.0/Lichii.3D.Cinema.Build386.zip) | Your own compatible Switch 2 remake dump | Depth-reprojected stereo on the included virtual cinema screen, preserving the original third-person camera. 2560 × 1440 eye transport is scaled to 3840 × 2160 theater textures per eye. |
+| [Ship of Harkinian VR](../../releases/download/v1.3.0/Ship.of.Harkinian.VR.zip) | Your own supported original N64 ROM dump | Separate native third-person OpenXR VR mod built on [Ship of Harkinian by Harbour Masters](https://github.com/HarbourMasters/Shipwright), with VR and desktop modes. |
 
-The correct project name is **Ship of Harkinian**, not “Arcanian.” The original PC port was created by **Harbour Masters**, not this uploader. These downloads use different game data and are not interchangeable.
+## New in v1.3.0
 
-## New in v1.2.0
+Lichii now uses build 386, with immutable per-draw camera snapshots, same-frame/crop flat fallback, depth-aware silhouette filtering and the upstream emulator fixes. The player confirmed depth working in the current build. Three post-restart camera sweeps did not reproduce an earlier Forest Temple session issue; the precise cause of that earlier issue was not established.
 
-Lichii is updated from build 316 to **build 341**, with repairs for missed stereo captures, camera selection, additional field/scale output paths, overlapping text and close-up foreground fringes. Stereo separation remains **48 mm / 0.048 game units at one unit per meter**. A new close-up limit caps each eye's displacement at 0.75% of screen width, 1.5% total, reducing extreme doubled edges. Nearby objects can therefore appear less exaggerated than in the old uncapped build.
+Preserves 48 mm producer separation, the 1.5% total close-up disparity cap, original camera, 4K theater textures, room/lighting presets and numpad controls. Screen distance is 3.0 m at 4.5 m width. Frame generation remains off. Uses zero frames ahead, render follower off and shader precompile Always. Startup requires at least 18 GiB free RAM and 34 GiB available Windows commitment, which includes paging capacity.
 
-The original camera/framing, 4K cinema output, room/lighting presets and numpad bindings are preserved. **Frame generation is disabled.** A 60 FPS cap is configured, but actual performance depends on scene and hardware. One matched RTX 3090 / 32 GiB test measured 46.28 guest FPS for the repair versus 46.78 FPS for the preceding unrepaired build 341; no speed increase is claimed. The measured gameplay and camera exercise retained stereo.
-
-Ship of Harkinian VR is the **same approved ZIP as v1.1.0**, without new Ship code changes. See the release notes and archive READMEs for verification details and limitations.
+Audio uses SDL3, stereo and Windows default output so it follows the default instead of remaining pinned to a disconnected physical endpoint. Select your headset output in Windows before launch. Physical unplug/replug recovery was not deliberately tested. Ship of Harkinian is the same previously approved ZIP, with no new Ship changes.
 
 ## Start Lichii 3D Cinema — Switch 2 remake
 
-1. Extract the entire Lichii ZIP to a writable folder. Install the [Microsoft Visual C++ x64 runtime](https://aka.ms/vc14/vc_redist.x64.exe), start SteamVR and make it the active OpenXR runtime.
-2. Open Lichii/lichii.exe, configure your controller and provide your own compatible game dump, keys and required firmware from your own system. Close the emulator after setup.
-3. Run Start-Lichii-3D-Cinema.cmd, select your remake dump and enter gameplay. Menus/loading screens without usable depth can appear flat.
+1. Extract the entire ZIP to a writable folder. Install the [Microsoft Visual C++ x64 runtime](https://aka.ms/vc14/vc_redist.x64.exe), start SteamVR and make it the active OpenXR runtime.
+2. Open Lichii/lichii.exe, configure your controller and supply your own compatible game dump, keys and any required firmware from your own system. Close Lichii after setup.
+3. Run Start-Lichii-3D-Cinema.cmd, select your remake dump and continue into gameplay. First shader preparation can take several minutes. Menus/loading screens can be flat.
+4. Num Lock on: Num 1 toggles the SteamVR dashboard; Num 3 or Ctrl+Alt+R recenters the cinema; Num 8 toggles stereo. Num 4/5 adjust brightness, Num 6 cycles lighting, Num 7 changes screen size and Num 0 recenters the tracking origin.
 
-With **Num Lock on**, **Num 1** toggles the SteamVR dashboard, **Num 3** recenters the cinema and **Num 8** toggles stereo. Num 4/5 adjust brightness, Num 6 cycles lighting, Num 7 changes screen size and Num 0 recenters the SteamVR tracking origin. Ctrl+Alt+R also recenters the screen. The archive README lists all controls and troubleshooting steps.
-
-For updates, close both apps and back up your own saves/configuration first. Extract to a new folder and deliberately migrate your own emulator data/save location. Selecting an old NAND folder can make progress appear older. No saves are bundled.
+Back up your saves/configuration before an update, then deliberately migrate your own emulator data. Selecting an old NAND location can make progress appear older. Do not overwrite the modified executable with the stock emulator: that removes this integration. No saves are supplied.
 
 ## Start Ship of Harkinian VR — original N64 game
 
-1. Extract the entire Ship ZIP. Keep assets and the included application resource pack soh.o2r beside soh.exe.
-2. Run ShipVRLauncher.exe in desktop mode first. When prompted, supply a supported ROM dump made from your own copy. The extractor generates oot.o2r or oot-mq.o2r locally. Supported hashes are documented in the included source archive.
-3. Close the game, connect a gamepad, start your active OpenXR runtime and choose **Play in VR**. DirectX 11 and the approved controller/VR settings are included.
+The correct name is **Ship of Harkinian**, by **Harbour Masters**, not Arcanian. The underlying native PC port was not made by this uploader. This download requires original N64 game data, not the Switch 2 remake.
 
-## Contents, limits and credits
+1. Extract the entire Ship ZIP; keep assets and the application resource pack soh.o2r beside soh.exe.
+2. Run ShipVRLauncher.exe in desktop mode first. Supply a supported ROM dump made from your own copy; the extractor creates oot.o2r or oot-mq.o2r locally. Supported hashes are documented in the included source materials.
+3. Close the game, connect a gamepad, start your OpenXR runtime and choose Play in VR. The included README covers DirectX 11, render scale, stereo strength and optional mods.
 
-Neither download includes a game ROM/dump, generated game archive, keys, firmware, personal saves, logs, credentials or shader cache. You supply your own compatible game data. Each application ZIP includes setup instructions, applicable source materials and license notices. SHA256SUMS.txt on the release page checks both ZIPs.
+## Contents, verification and limits
 
-Lichii cinema stereo uses depth reprojection. It cannot recover the true appearance of surfaces hidden in the original image, and some colored/translucent UI remains approximate. Missing/untrusted scene data may safely fall back to flat output. Automated geometry and routing checks do not establish physical lens comfort, every area/cutscene or long-session stability.
+Both ZIPs include setup instructions, source materials and license notices. Games, keys, firmware, saves, generated game archives, game-derived caches, private handoffs, diagnostic captures, logs and credentials are excluded. SHA256SUMS-v1.3.0.txt on the release page verifies both downloads.
 
-Upstream: [Lichii](https://github.com/zortos293/Lichii), [Eglantine](https://github.com/Djihads80/Eglantine), and [Harbour Masters / Shipwright](https://github.com/HarbourMasters/Shipwright).
+Local CPU/GPU fixtures and selected automated gameplay checks passed; portable-launcher checks are offline. A separate full public-package gameplay/headset test was not performed. Heavy areas remain CPU limited; a 60 FPS cap does not guarantee 60 FPS. Reprojection cannot reconstruct surfaces hidden from the original camera, and translucent UI remains approximate. No exhaustive dungeon/cutscene, long-session stability or physical lens-comfort claim is made.
 
-Download the **named application ZIPs under Assets**. GitHub's automatic “Source code” ZIP/tar files contain this download-index repository, not the emulator distribution. Full source materials are inside the application archives. [Older releases](https://github.com/jamesmthorp-gif/ocarina-vr-builds/releases) remain available for existing links.
+Credits: [Lichii](https://github.com/zortos293/Lichii), [Eglantine](https://github.com/Djihads80/Eglantine), [Harbour Masters / Shipwright](https://github.com/HarbourMasters/Shipwright). Download the named application ZIPs under Assets. GitHub automatic Source code archives contain this download-index repository; application source is inside the application ZIPs. Older releases and existing download URLs remain available.
